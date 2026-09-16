@@ -1,12 +1,13 @@
 # Meridian Care — Patient Support Portal
 
 A patient-facing support portal for a fictional pharmaceutical/healthcare
-company, built as a portfolio project to demonstrate production-quality
-React + TypeScript frontend engineering for a healthcare technology context.
+company, built to demonstrate a production-quality React + TypeScript
+frontend: typed forms, cached server state, real async UI states, and
+accessibility that's been checked rather than assumed.
 
-> **This is a demo, not a medical product.** There are no real patients,
-> providers, treatments, or clinical data anywhere in this codebase.
-> Authentication is simulated. Nothing here constitutes medical advice. See
+> **This is a demo project.** There are no real patients, providers,
+> treatments, or clinical data anywhere in this codebase. Authentication is
+> simulated. Nothing here constitutes medical advice. See
 > [Security & data considerations](#security--data-considerations) below.
 
 ## Overview
@@ -23,16 +24,6 @@ midway through a treatment for moderate-to-severe atopic dermatitis
 onboarding phase, an established appointment history, a partial adherence
 record (including one realistically missed dose), and upcoming follow-up
 care. That narrative arc is what every screen in the app is built to show.
-
-## Why this project exists
-
-It's a portfolio piece built to demonstrate the kind of frontend engineering
-a senior React role expects, in a domain — patient support / healthcare —
-that rewards exactly the qualities that matter most in that domain: careful
-handling of async and error states, real accessibility (not just
-Lighthouse-green), a UI that reads as trustworthy rather than flashy, and an
-architecture that would hold up if a real backend, more patients, and more
-features were added tomorrow.
 
 ## Features
 
@@ -169,8 +160,8 @@ hold server data. See [ARCHITECTURE.md § State management strategy](./ARCHITECT
 
 - Skip-to-content link, semantic landmarks (`header`/`nav`/`main`), and a
   logical heading hierarchy on every page.
-- Keyboard support throughout: the mobile nav traps focus appropriately, is
-  dismissible with Escape, and returns focus to its trigger on close.
+- Keyboard support throughout: the mobile nav is dismissible with Escape
+  and returns focus to its trigger on close.
 - Status changes that aren't adjacent to the user's focus (cancelling an
   appointment, marking a notification read) are announced through a shared
   `LiveRegion` (`role="status"`, `aria-live="polite"`) component.
@@ -197,8 +188,7 @@ hold server data. See [ARCHITECTURE.md § State management strategy](./ARCHITECT
 ## Testing strategy
 
 The suite (Vitest + React Testing Library, 25 tests across 8 files) focuses
-on behavior a user or an interviewer would actually care about, not
-implementation details:
+on user-facing behavior, not implementation details:
 
 - **Auth & routing** — `LoginPage` covers empty-form validation, invalid
   email format, a wrong-credentials error message, and a successful
@@ -233,22 +223,24 @@ real; only artificial latency and randomness are removed. Run
 
 ## CI/CD
 
-[`​.github/workflows/ci.yml`](./.github/workflows/ci.yml) runs on every push
+[`.github/workflows/ci.yml`](./.github/workflows/ci.yml) runs on every push
 and pull request to `main`: install → lint → format check → typecheck →
 test with coverage → production build, uploading the coverage report and
 the `dist/` build as workflow artifacts. A concurrency group cancels
-superseded runs on the same branch. There is no deploy step — this is a
-portfolio project without a hosting target — but the pipeline is structured
-so adding one (e.g. a deploy-on-merge-to-main job gated on the existing
-jobs succeeding) would be a small addition, not a restructure.
+superseded runs on the same branch. There is no deploy step — this repo has
+no hosting target — but the pipeline is structured so adding one (e.g. a
+deploy-on-merge-to-main job gated on the existing jobs succeeding) would be
+a small addition, not a restructure.
 
-## Setup instructions
+## Getting started
 
-Requires Node.js 20+ (CI runs on Node 22).
+Requires Node.js 20+.
 
 ```bash
+git clone https://github.com/<your-username>/patient-support-portal.git
+cd patient-support-portal
 npm install
-npm run dev        # start the dev server
+npm run dev
 ```
 
 Other scripts:
@@ -331,6 +323,11 @@ would be a `VITE_API_BASE_URL` variable consumed only inside
   design system (`src/index.css`) is already structured to support.
 - A real notification delivery mechanism (the current feature only reflects
   pre-seeded notification state).
+
+## License
+
+[MIT](./LICENSE) — free to use as a reference or starting point for your
+own project.
 
 ---
 
