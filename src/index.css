@@ -1,0 +1,131 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens — Meridian Care design system.
+ * A clinical, editorial palette: deep teal for trust and brand,
+ * a single warm amber reserved for "current / needs attention" states,
+ * and calm neutrals for everything else. See docs/design-system.md.
+ */
+@theme {
+  --font-display: 'Source Serif 4', ui-serif, Georgia, serif;
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Ink / neutrals */
+  --color-ink-950: #10201c;
+  --color-ink-900: #14251f;
+  --color-ink-700: #35443f;
+  --color-ink-500: #5c6a65;
+  --color-ink-300: #93a19b;
+
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f5f7f6;
+  --color-surface-muted: #eef1f0;
+  --color-border: #dde3e1;
+  /* Meets the 3:1 non-text contrast floor against white — used on form
+     control boundaries (Input/Select/Textarea/Button) where the border
+     is the primary affordance, not a decorative divider. */
+  --color-border-strong: #8b9791;
+
+  /* Brand: clinical teal */
+  --color-brand-50: #e6f1ef;
+  --color-brand-100: #cfe6e2;
+  --color-brand-400: #2f8b81;
+  --color-brand-600: #0f6b62;
+  --color-brand-700: #0b544d;
+  --color-brand-900: #0a3733;
+
+  /* Single reserved accent: current-stage / attention amber.
+     -600/-700 are tuned (not the "obvious" hex) so white-on-600 clears
+     the 3:1 non-text contrast floor and 700-on-50 text clears 4.5:1. */
+  --color-accent-50: #fbf1e1;
+  --color-accent-400: #cf9a44;
+  --color-accent-600: #a3742c;
+  --color-accent-700: #7a5820;
+
+  /* Semantic */
+  --color-success-50: #e4f3e9;
+  --color-success-600: #1e7b45;
+  --color-success-700: #175f36;
+
+  --color-warning-50: #fbf1e1;
+  --color-warning-600: #a3742c;
+  --color-warning-700: #7a5820;
+
+  --color-danger-50: #fbeae9;
+  --color-danger-600: #b3261e;
+  --color-danger-700: #8c1e18;
+
+  --color-info-50: #eaf0fb;
+  --color-info-600: #2b5fa6;
+  --color-info-700: #1f4a84;
+
+  --shadow-card: 0 1px 2px 0 rgb(20 37 31 / 0.06), 0 1px 3px 0 rgb(20 37 31 / 0.08);
+  --shadow-popover:
+    0 8px 24px -4px rgb(20 37 31 / 0.16), 0 2px 6px -2px rgb(20 37 31 / 0.1);
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-border);
+  }
+
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    color: var(--color-ink-900);
+    background: var(--color-surface-subtle);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-ink-950);
+    letter-spacing: -0.01em;
+  }
+
+  /* Visible, consistent focus ring for every interactive element. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Respect reduced-motion preferences everywhere. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Visually-hidden but screen-reader-available text. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
